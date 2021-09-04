@@ -1,0 +1,2 @@
+# Ampere
+ Multipurpose Discord bot
