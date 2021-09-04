@@ -1,8 +1,9 @@
+require('dotenv').config()
 const Discord = require('discord.js')
 const client = new Discord.Client()
 const { Player } = require("discord-player");
 
-const config = require('./config.json')
+let prefix = process.env.PREFIX
 const command = require('./command.js')
 // Music commands
 const play = require('./commands/music/play.js')
@@ -33,15 +34,15 @@ client.once('ready', () => {
       embed: {
         color: 'BLUE',
         fields: [
-          { name: `${config.prefix}ping`, value: 'Pong!', inline: true },
-          { name: `${config.prefix}help`, value: 'This help message', inline: true },
-          { name: `${config.prefix}servers`, value: 'Bot server info', inline: true },
-          { name: `${config.prefix}clearchannel`, value: 'Clears channel Admin only!', inline: true },
-          { name: `${config.prefix}play`, value: 'Plays music from youtube', inline: true },
-          { name: `${config.prefix}pause`, value: 'Pauses playing music', inline: true },
-          { name: `${config.prefix}resume`, value: 'Resumes paused music', inline: true },
-          { name: `${config.prefix}skip`, value: 'Skips playing music', inline: true },
-          { name: `${config.prefix}clear, clearqueue`, value: 'Clears music queue', inline: true },
+          { name: `${prefix}ping`, value: 'Pong!', inline: true },
+          { name: `${prefix}help`, value: 'This help message', inline: true },
+          { name: `${prefix}servers`, value: 'Bot server info', inline: true },
+          { name: `${prefix}clearchannel`, value: 'Clears channel Admin only!', inline: true },
+          { name: `${prefix}play`, value: 'Plays music from youtube', inline: true },
+          { name: `${prefix}pause`, value: 'Pauses playing music', inline: true },
+          { name: `${prefix}resume`, value: 'Resumes paused music', inline: true },
+          { name: `${prefix}skip`, value: 'Skips playing music', inline: true },
+          { name: `${prefix}clear, clearqueue`, value: 'Clears music queue', inline: true },
         ]
       }
     }
@@ -65,7 +66,7 @@ client.once('ready', () => {
   })
   // ~~~~~~~~~~~~ Music commands ~~~~~~~~~~~~
   command(client, ['play'], message => {
-    const args = message.content.slice(config.prefix.length + 5)
+    const args = message.content.slice(prefix.length + 5)
     
     if (!args == '') {
       play(client, message, args)
@@ -93,4 +94,4 @@ client.once('ready', () => {
 })
 
 
-client.login(config.token)
+client.login(process.env.TOKEN)
