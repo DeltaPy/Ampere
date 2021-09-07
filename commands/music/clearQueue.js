@@ -10,6 +10,8 @@ module.exports = (client, message) => {
 
     try {
         client.player.clearQueue(message)
+        client.player.setRepeatMode(message, false)
+        client.player.stop(message)
         return message.channel.send('✅ - queue **cleared**!')
     } catch (e) {
         console.error(e)

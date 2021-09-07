@@ -10,8 +10,8 @@ module.exports = (client, message) => {
     
 
     try {
-        client.player.setRepeatMode(message, false);
-        client.player.stop(message);
+        client.player.setRepeatMode(message, false)
+        client.player.stop(message)
         return message.channel.send('⏹️ - Music **stopped**!')
     } catch (e) {
         console.error(e)
