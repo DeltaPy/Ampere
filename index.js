@@ -75,13 +75,13 @@ client.once('ready', () => {
     }
   })
   // ~~~~~~~~~~~~ Music commands ~~~~~~~~~~~~
-  command(client, ['play'], message => {
-    const args = message.content.slice(prefix.length + 5)
+  command(client, ['play', 'p'], message => {
+    const args = message.content.split(/(?<=^\S+)\s/)
     
-    if (!args == '') {
-      play(client, message, args)
+    if (!args[1]) {
+      return message.channel.send('Please enter a song title or an URL.')
     } else {
-      message.channel.send('Please enter a song title or an URL.')
+      play(client, message, args)
     } 
   })
 
@@ -102,7 +102,7 @@ client.once('ready', () => {
     if (args[1] == undefined || args[1] === 'queue') {
       loop(client, message, args)
     } else {
-      message.channel.send(`Please enter a valid repeat mode (Example: ${prefix}loop queue)`)
+      return message.channel.send(`Please enter a valid repeat mode (Example: ${prefix}loop queue)`)
     } 
   })
 
