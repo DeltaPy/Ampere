@@ -81,7 +81,7 @@ client.once('ready', () => {
     if (!args[1]) {
       return message.channel.send('Please enter a song title or an URL.')
     } else {
-      play(client, message, args)
+      play(client, message, args[1])
     } 
   })
 
