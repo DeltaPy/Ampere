@@ -45,7 +45,7 @@ client.once('ready', () => {
           { name: `${prefix}help`, value: 'This help message', inline: true },
           { name: `${prefix}servers`, value: 'Bot server info', inline: true },
           { name: `${prefix}clearchannel`, value: 'Clears channel Admin only!', inline: true },
-          { name: `${prefix}play`, value: 'Plays music from youtube', inline: true },
+          { name: `${prefix}play, p`, value: 'Plays music from youtube', inline: true },
           { name: `${prefix}pause`, value: 'Pauses playing music', inline: true },
           { name: `${prefix}resume`, value: 'Resumes paused music', inline: true },
           { name: `${prefix}skip`, value: 'Skips playing music', inline: true },
