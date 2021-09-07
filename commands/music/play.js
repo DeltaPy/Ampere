@@ -9,14 +9,11 @@ module.exports = async (client, message, args) => {
     if(message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) 
     return message.channel.send('🤔 - The bot is in another voice channel.')
 
-    // try {
-    //     if(!client.player.getQueue(message).paused) message.channel.send(`🎶 - **${videos[0].title}** has ben added to the queue.`)
-    // } catch{
-        try {
-            client.player.play(message, String(videos[0].url))
-        } catch (e) {
-            console.error(e)
-            message.channel.send('An unexpected error has occurred!')
-        }
+    try {
+        client.player.play(message, String(videos[0].url))
+    } catch (e) {
+        console.error(e)
+        message.channel.send('An unexpected error has occurred!')
+    }
     
 }
