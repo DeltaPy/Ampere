@@ -18,8 +18,8 @@ module.exports = (client, message, args) => {
         filtersUpdated[filterToUpdate] = client.player.getQueue(message).filters[filterToUpdate] ? false : true
         client.player.setFilters(message, filtersUpdated)
 
-        if (filtersUpdated[filterToUpdate]) message.channel.send("⏱️ - I'm adding the filter to the music, please wait...")
-        else message.channel.send("⏱️ - I'm disabling the filter on the music, please wait...")
+        if (filtersUpdated[filterToUpdate]) message.channel.send("⏱️ - I'm adding the filter to the song, please wait...")
+        else message.channel.send("⏱️ - I'm disabling the filter on the song, please wait...")
     } catch (e) {
         console.error(e)
         return message.channel.send('An unexpected error has occured!')

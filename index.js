@@ -16,16 +16,27 @@ const clearQueue = require('./commands/music/clearQueue.js')
 const loop = require('./commands/music/loop.js')
 const disconnect = require('./commands/music/disconnect.js')
 const filter = require('./commands/music/filter.js')
+const remove = require('./commands/music/remove.js')
 
 // init discord-player
 const player = new Player(client)
 client.config = config
 client.player = player
 client.filters = client.config.filters
+// discord-player settings
+client.player.options.leaveOnEmptyCooldown = 300000
+client.player.options.enableLive = true
+client.player.options.leaveOnEnd = false
+client.player.options.leaveOnEmpty = true
+client.player.options.bufferingTimeout = 2000
 // event handlers
-client.player.on("trackStart", (message, track) => message.channel.send(`🎵 - Now playing **${track.title}**!`))
-client.player.on("trackAdd", (message, queue) => message.channel.send(`🎶 - **${queue.tracks[queue.tracks.length - 1].title}** has ben added to the queue.`))
-client.player.on("queueEnd", (message) => message.channel.send(`😞 - The queue has ended!`))
+client.setMaxListeners(15)
+client.player.on('trackStart', (message, track) => message.channel.send(`🎵 - Now playing **${track.title}**!`))
+client.player.on('trackAdd', (message, queue) => message.channel.send(`🎶 - **${queue.tracks[queue.tracks.length - 1].title}** has ben added to the queue.`))
+client.player.on('queueEnd', (message) => message.channel.send(`😞 - The queue has ended!`))
+client.player.on('botDisconnect', (message) => message.channel.send(`⏱️ - **Disconnecting** bot was AFK for 5 Min.`))
+
+
 
 
 client.once('ready', () => {
@@ -106,6 +117,9 @@ client.once('ready', () => {
     } 
   })
 
+  command(client, ['remove'], message => {
+    remove(client, message)
+  })
   command(client, ['clearqueue', 'clear'], message => {
     clearQueue(client, message)
   })
@@ -118,6 +132,11 @@ client.once('ready', () => {
     const args = message.content.split(/(?<=^\S+)\s/)
     if(!args[1]) return message.channel.send('🤔 - Please specify a valid filter to enable or disable!')
     filter(client, message, args[1])
+  })
+
+  command(client, ['debug'], message => {
+    const queue = client.player.getQueue(message).tracks
+    console.log(queue)
   })
 
 })
